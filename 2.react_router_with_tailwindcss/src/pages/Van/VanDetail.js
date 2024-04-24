@@ -15,11 +15,11 @@ const VanDetail = () => {
   }, [params.id]);
   return (
     <div>
-          <img src={data.imageUrl} />
-          <h1>{data.name}</h1>
-          <h1>{data.type}</h1>
-          <h1>{data.description}</h1>
-          <p>{ data.price}</p>
+      <img src={data.imageUrl} />
+      <h1>{data.name}</h1>
+      <h1>{data.type}</h1>
+      <h1>{data.description}</h1>
+      <p>{data.price}</p>
       <button onClick={handleClick}> click me</button>
     </div>
   );

@@ -1,38 +1,76 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const HostVanDetail = () => {
   const params = useParams();
-  const [currentVan, setCurrentVan] = useState({});
+  const [currentVan, setCurrentVan] = useState(null);
   useEffect(() => {
     fetch(`/api/host/vans/${params.id}`)
       .then((res) => res.json())
       .then((data) => setCurrentVan(data.vans));
   }, []);
+
+  if (!currentVan) {
+    return <h2>loading...</h2>;
+  }
+
   return (
-    <div className="">
+    <div className="text-2xl">
       <section className="mx-20">
         <Link to=".." relative="path">
           &larr; <span>back to all vans</span>
         </Link>
       </section>
-      <div className="shadow-xl rounded-3xl m-20 bg-white">
+      <div className="shadow-xl rounded-3xl mx-20 my-5 bg-white">
         <div className="flex p-7 items-center">
           <div>
-            <img src={currentVan.imageUrl} className="w-96" />
+            <img src={currentVan.imageUrl} className="w-96 rounded-sm" />
           </div>
-          <div className="indent-8">
-            <h2 className="w-32 h-12 bg-slate-400">{currentVan.type}</h2>
-            <h3 className="font-bold text-3xl">{currentVan.name}</h3>
-            <p className="font-bold text-2xl">${currentVan.price}/day</p>
+          <div className="ml-7">
+            <h2 className="bg-slate-400 inline-block py-2 px-3 rounded mb-4">
+              {currentVan.type}
+            </h2>
+            <h3 className="font-bold text-5xl mb-4">{currentVan.name}</h3>
+            <p className="font-bold text-3xl">
+              ${currentVan.price}
+              <span className="text-sm font-semibold">/day</span>
+            </p>
           </div>
         </div>
         <div className="p-7">
-          <nav className=" flex gap-6">
-            <Link to=".">description</Link>
-            <Link to="pricing">pricing</Link>
-            <Link to="photos">photos</Link>
+          <nav className="border flex gap-6 mb-6">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "border border-orange-400 rounded-lg py-2 px-3"
+                  : "py-2 px-3"
+              }
+              end
+              to="."
+            >
+              Description
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "border border-orange-400 rounded-lg py-2 px-3"
+                  : "py-2 px-3"
+              }
+              to="pricing"
+            >
+              Pricing
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "border border-orange-400 rounded-lg py-2 px-3"
+                  : "py-2 px-3"
+              }
+              to="photos"
+            >
+              Photos
+            </NavLink>
           </nav>
           <Outlet context={{ currentVan }} />
         </div>

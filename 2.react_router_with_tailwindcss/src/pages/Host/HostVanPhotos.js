@@ -5,8 +5,8 @@ const HostVanPhotos = () => {
   const {currentVan} = useOutletContext()
   return (
     <div>
-      <h3>host van photo</h3>
-      <img src={currentVan.imageUrl} />
+      
+      <img className="w-32 h-32" src={currentVan.imageUrl} />
     </div>
   )
 }

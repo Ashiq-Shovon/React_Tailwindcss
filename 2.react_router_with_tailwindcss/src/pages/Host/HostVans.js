@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../server.js";
 import { Link } from "react-router-dom";
 const HostVans = () => {
-  const [vans, setVans] = useState([]);
+  const [vans, setVans] = useState();
   useEffect(() => {
     fetch(`/api/host/vans`)
       .then((res) => res.json())
@@ -11,13 +11,16 @@ const HostVans = () => {
         console.log(data.vans);
       });
   }, []);
+  if (!vans) {
+    return <h2>Loading...</h2>
+  }
   return (
     <>
-      <div className="grid justify-center ">
+      <div className="grid justify-center">
         <Link to="something">click</Link>
-        {vans.map((data) =>
+        {vans.map((data, index) =>
           vans.length > 0 ? (
-            <Link to={`/host/vans/${data.id}`}>
+            <Link key={index} to={`/host/vans/${data.id}`}>
               <div className="container lg:w-[1000px] md:w-[500px] flex shadow-lg p-8 m-2 bg-white">
                 <img src={data.imageUrl} className="rounded-lg w-48" />
                 <div className="indent-4 grid content-center">

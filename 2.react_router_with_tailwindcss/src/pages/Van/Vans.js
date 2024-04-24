@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../server";
 const Vans = () => {
-  const [vans, setVans] = useState([]);
+  const [vans, setVans] = useState(null);
   useEffect(() => {
     fetch("api/vans")
       .then((res) => res.json())
       .then((data) => setVans(data.vans));
   }, []);
   console.log(vans);
+  if (!vans) {
+    return <h2>Loading...</h2>
+  }
   return (
     <>
       <div className="py-12 bg-[#FFF7ED]">
