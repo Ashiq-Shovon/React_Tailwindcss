@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
+import { Link } from "react-router-dom";
 const VanDetail = () => {
   const params = useParams();
+  const location = useLocation();
   const [data, setData] = useState({});
   const handleClick = () => {
     console.log(params);
@@ -13,14 +15,30 @@ const VanDetail = () => {
       .then((data) => setData(data.vans));
     console.log(data);
   }, [params.id]);
+  const back = location.state?.search || "";
   return (
     <div>
-      <img src={data.imageUrl} />
-      <h1>{data.name}</h1>
-      <h1>{data.type}</h1>
-      <h1>{data.description}</h1>
-      <p>{data.price}</p>
-      <button onClick={handleClick}> click me</button>
+      <div className="p-8 text-2xl">
+        <div className="mb-8">
+          <Link to={`..${back}`} relative="path">
+            Back to all vans
+          </Link>
+        </div>
+
+        <img
+          className="object-none object-center rounded mb-8"
+          src={data.imageUrl}
+        />
+
+        <h1 className="inline-block p-2 rounded bg-slate-500 mb-8">
+          {data.type}
+        </h1>
+        <h1 className="font-bold mb-8">{data.name}</h1>
+        <h1 className="mb-4">
+          <span className="font-bold text-3xl">${data.price}</span>/day
+        </h1>
+        <h1>{data.description}</h1>
+      </div>
     </div>
   );
 };
