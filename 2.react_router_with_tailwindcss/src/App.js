@@ -1,8 +1,15 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  createRoutesFromElements,
+  Routes,
+  Route,
+  Link,
+} from "react-router-dom";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import Vans from "./pages/Van/Vans";
+import Vans, { loader } from "./pages/Van/Vans";
 import VanDetail from "./pages/Van/VanDetail";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Host/Dashboard";
@@ -15,30 +22,33 @@ import HostVanInfo from "./pages/Host/HostVanInfo";
 import HostVanPricing from "./pages/Host/HostVanPricing";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route path="*" element={<h1>page not found</h1>} />
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route path="vans" element={<Vans />}  />
+      <Route path="vans/:id" element={<VanDetail />} />
+      <Route path="host" element={<HostLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="income" element={<Income />} />
+        <Route path="reviews" element={<Reviews />} />
+        <Route path="vans" element={<HostVans />} />
+        <Route path="vans/:id" element={<HostVanDetail />}>
+          <Route index element={<HostVanInfo />} />
+          <Route path="photos" element={<HostVanPhotos />} />
+          <Route path="pricing" element={<HostVanPricing />} />
+        </Route>
+      </Route>
+    </Route>
+  )
+);
+
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="vans" element={<Vans />} />
-            <Route path="vans/:id" element={<VanDetail />} />
-            <Route path="host" element={<HostLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="income" element={<Income />} />
-              <Route path="reviews" element={<Reviews />} />
-              <Route path="vans" element={<HostVans />} />
-              <Route path="vans/:id" element={<HostVanDetail />} >
-                <Route index element={<HostVanInfo />} />
-                <Route path="photos" element={ <HostVanPhotos />} />
-                <Route path="pricing" element={<HostVanPricing />} />
-              </Route>
-            </Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </>
   );
 }

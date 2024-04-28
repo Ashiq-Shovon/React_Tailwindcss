@@ -3,16 +3,35 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import "../../server";
+import "../../dataLayerApi";
+import { getVans } from "../../dataLayerApi";
+
+export function loader() {
+  const vans = getVans();
+}
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [vans, setVans] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const typeFilter = searchParams.get("type");
+
   useEffect(() => {
-    fetch("api/vans")
-      .then((res) => res.json())
-      .then((data) => setVans(data.vans));
+    async function loadVans() {
+      setLoading(true);
+      try {
+        const data = await getVans();
+        setVans(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadVans();
   }, []);
   console.log(vans);
+  console.log(typeFilter);
 
   const displayVans = typeFilter
     ? vans.filter((char) => char.type === typeFilter)
@@ -28,20 +47,23 @@ const Vans = () => {
       return preParams;
     });
   };
-  if (!vans) {
+  if (loading) {
     return <h2>Loading...</h2>;
+  }
+  if (error) {
+    return <h1>there was an error: { error.message}</h1>
   }
   return (
     <>
       <div className="py-12 bg-[#FFF7ED]">
-        <Link to="?type=simple">simple</Link>
+        {/* <Link to="?type=simple">simple</Link>
         <Link to="?type=rugged">rugged</Link>
-        <Link to="?type=luxury">luxury</Link>
+        <Link to="?type=luxury">luxury</Link> */}
         <div className="flex justify-center p-5 space-x-12">
           <button
             onClick={() => handleFilterChange("type", "simple")}
             className={`border rounded-md p-3 bg-orange-500 ${
-              typeFilter === "simple" ? "bg-gray-700" : ""
+              typeFilter === "simple" ? "bg-gray-800 text-white" : ""
             }`}
           >
             simple
@@ -49,7 +71,7 @@ const Vans = () => {
           <button
             onClick={() => handleFilterChange("type", "rugged")}
             className={`border rounded-md p-3 bg-orange-500 ${
-              typeFilter === "rugged" ? "bg-gray-700" : ""
+              typeFilter === "rugged" ? "bg-gray-800 text-white" : ""
             }`}
           >
             rugged
@@ -57,7 +79,7 @@ const Vans = () => {
           <button
             onClick={() => handleFilterChange("type", "luxury")}
             className={`border rounded-md p-3 bg-orange-500 ${
-              typeFilter === "luxury" ? "bg-gray-700" : ""
+              typeFilter === "luxury" ? "bg-gray-800 text-white" : ""
             }`}
           >
             luxury
