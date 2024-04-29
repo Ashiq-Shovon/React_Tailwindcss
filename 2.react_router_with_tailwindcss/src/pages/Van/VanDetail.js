@@ -26,7 +26,7 @@ const VanDetail = () => {
       <div className="p-8 text-2xl">
         <div className="mb-8">
           <Link to={`..${back}`} relative="path">
-            Back to all vans
+          &larr; <span>Back to all vans</span>
           </Link>
         </div>
 
