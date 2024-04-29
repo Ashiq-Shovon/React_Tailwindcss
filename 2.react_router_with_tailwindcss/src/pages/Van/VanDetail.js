@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useLoaderData, useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { getVan } from "../../dataLayerApi";
+export function loader({params}) {
+  return getVan(params);
+}
 const VanDetail = () => {
-  const params = useParams();
+  // const params = useParams();
   const location = useLocation();
-  const [data, setData] = useState({});
-  const handleClick = () => {
-    console.log(params);
-    console.log(data);
-  };
-  useEffect(() => {
-    fetch(`/api/vans/${params.id}`)
-      .then((res) => res.json())
-      .then((data) => setData(data.vans));
-    console.log(data);
-  }, [params.id]);
+  const data = useLoaderData();
+  // const [data, setData] = useState({});
+  // const handleClick = () => {
+  //   console.log(params);
+  //   console.log(data);
+  // };
+  // useEffect(() => {
+  //   fetch(`/api/vans/${params.id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data.vans));
+  //   console.log(data);
+  // }, [params.id]);
   const back = location.state?.search || "";
   return (
     <div>

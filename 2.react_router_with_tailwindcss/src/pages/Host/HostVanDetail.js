@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, useParams } from "react-router";
+import { Outlet, useLoaderData, useParams } from "react-router";
 import { Link, NavLink } from "react-router-dom";
+// import { getHostVansDetail } from "../../dataLayerApi";
+import { getHostVanDetail } from "../../dataLayerApi";
+
+export function loader({ params }) {
+  return getHostVanDetail(params);
+}
 
 const HostVanDetail = () => {
-  const params = useParams();
-  const [currentVan, setCurrentVan] = useState(null);
-  useEffect(() => {
-    fetch(`/api/host/vans/${params.id}`)
-      .then((res) => res.json())
-      .then((data) => setCurrentVan(data.vans));
-  }, []);
+  // const params = useParams();
+  // const [currentVan, setCurrentVan] = useState(null);
+  const currentVan = useLoaderData();
+  // console.log(currentVan);
+  // useEffect(() => {
+  //   fetch(`/api/host/vans/${params.id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setCurrentVan(data.vans));
+  // }, []);
 
-  if (!currentVan) {
-    return <h2>loading...</h2>;
-  }
+  // if (!currentVan) {
+  //   return <h2>loading...</h2>;
+  // }
 
   return (
     <div className="text-2xl">

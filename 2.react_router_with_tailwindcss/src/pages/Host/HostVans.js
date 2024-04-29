@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "../../server.js";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { getHostVans } from "../../dataLayerApi.js";
+export function loader() {
+  
+  return getHostVans();
+}
 const HostVans = () => {
-  const [vans, setVans] = useState();
-  useEffect(() => {
-    fetch(`/api/host/vans`)
-      .then((res) => res.json())
-      .then((data) => {
-        setVans(data.vans);
-        console.log(data.vans);
-      });
-  }, []);
-  if (!vans) {
-    return <h2>Loading...</h2>
-  }
+  // const [vans, setVans] = useState();
+  const vans = useLoaderData()
+  // useEffect(() => {
+  //   fetch(`/api/host/vans`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setVans(data.vans);
+  //       console.log(data.vans);
+  //     });
+  // }, []);
+  // if (!vans) {
+  //   return <h2>Loading...</h2>
+  // }
   return (
     <>
       <div className="grid justify-center">

@@ -1,37 +1,38 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLoaderData } from "react-router-dom";
 import "../../server";
 import "../../dataLayerApi";
 import { getVans } from "../../dataLayerApi";
 
 export function loader() {
-  const vans = getVans();
+  return getVans();
 }
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [vans, setVans] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [vans, setVans] = useState([]);
+  // const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const typeFilter = searchParams.get("type");
 
-  useEffect(() => {
-    async function loadVans() {
-      setLoading(true);
-      try {
-        const data = await getVans();
-        setVans(data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadVans();
-  }, []);
+  const vans = useLoaderData();
+  // useEffect(() => {
+  //   async function loadVans() {
+  //     setLoading(true);
+  //     try {
+  //       const data = await getVans();
+  //       setVans(data);
+  //     } catch (err) {
+  //       setError(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   loadVans();
+  // }, []);
   console.log(vans);
-  console.log(typeFilter);
+  // console.log(typeFilter);
 
   const displayVans = typeFilter
     ? vans.filter((char) => char.type === typeFilter)
@@ -47,12 +48,12 @@ const Vans = () => {
       return preParams;
     });
   };
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-  if (error) {
-    return <h1>there was an error: { error.message}</h1>
-  }
+  // if (loading) {
+  //   return <h2>Loading...</h2>;
+  // }
+  // if (error) {
+  //   return <h1>there was an error: { error.message}</h1>
+  // }
   return (
     <>
       <div className="py-12 bg-[#FFF7ED]">
