@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <header className="bg-[#FFF7ED] px-5">
+      <header className="bg-[#FFF7ED] px-5 z-20 relative">
         <div className="w-5/6 mx-auto">
           <div className="flex justify-between py-5 text-2xl">
             <NavLink to="/" className="flex font-bold">

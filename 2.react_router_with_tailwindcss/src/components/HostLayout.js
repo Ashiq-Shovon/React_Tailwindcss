@@ -6,7 +6,7 @@ const HostLayout = () => {
   return (
     <div>
       <nav>
-        <div className="flex justify-center  py-4">
+        <div className="flex justify-center relative  py-4 z-20">
           <NavLink
             end
             to="."

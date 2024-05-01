@@ -1,14 +1,17 @@
-import React, { Suspense } from "react";
+import React, { Suspense, CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { Await, Link, defer } from "react-router-dom";
 import { useSearchParams, useLoaderData } from "react-router-dom";
 import "../../server";
 import "../../dataLayerApi";
 import { getVans } from "../../dataLayerApi";
+import Loader from "../../components/Loader";
+
 
 export function loader() {
   return defer({ vans: getVans() });
 }
+
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   // const [vans, setVans] = useState([]);
@@ -55,7 +58,7 @@ const Vans = () => {
         {/* <Link to="?type=simple">simple</Link>
         <Link to="?type=rugged">rugged</Link>
         <Link to="?type=luxury">luxury</Link> */}
-        <Suspense fallback={<h1>loading...</h1>}>
+        <Suspense fallback={<Loader />}>
           <Await resolve={vansPromise.vans}>
             {(vans) => {
               const displayVans = typeFilter

@@ -1,14 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import "../../server.js";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, defer, Await } from "react-router-dom";
 import { getHostVans } from "../../dataLayerApi.js";
+import Loader from "../../components/Loader.js";
+import SyncLoader from "react-spinners/SyncLoader";
+const override = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: "-120px",
+  position: "absolute",
+  zIndex: "10",
+  width: "100%",
+  height: "100%",
+  backgroundColor: "#FFF7ED",
+};
 export function loader() {
-  
-  return getHostVans();
+  return defer({ vans: getHostVans() });
 }
 const HostVans = () => {
   // const [vans, setVans] = useState();
-  const vans = useLoaderData()
+  const hostVans = useLoaderData();
   // useEffect(() => {
   //   fetch(`/api/host/vans`)
   //     .then((res) => res.json())
@@ -22,26 +34,33 @@ const HostVans = () => {
   // }
   return (
     <>
-      <div className="grid justify-center">
-        <Link to="something">click</Link>
-        {vans.map((data, index) =>
-          vans.length > 0 ? (
-            <Link key={index} to={`/host/vans/${data.id}`}>
-              <div className="container lg:w-[1000px] md:w-[500px] flex shadow-lg p-8 m-2 bg-white">
-                <img src={data.imageUrl} className="rounded-lg w-48" />
-                <div className="indent-4 grid content-center">
-                  <h2 className="font-bold text-2xl">{data.name}</h2>
-                  <p>
-                    <span className="text-lg"> ${data.price}/day</span>
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ) : (
-            <h1>loading</h1>
-          )
-        )}
-      </div>
+      <Suspense fallback={<Loader />}>
+        <div className="grid justify-center">
+          
+
+          <Await resolve={hostVans.vans}>
+            {(vans) => {
+              return (
+                <>
+                  {vans.map((van, index) => (
+                    <Link key={index} to={`/host/vans/${van.id}`}>
+                      <div className="container lg:w-[1000px] md:w-[500px] flex shadow-lg p-8 m-2 bg-white">
+                        <img src={van.imageUrl} className="rounded-lg w-48" />
+                        <div className="indent-4 grid content-center">
+                          <h2 className="font-bold text-2xl">{van.name}</h2>
+                          <p>
+                            <span className="text-lg"> ${van.price}/day</span>
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </>
+              );
+            }}
+          </Await>
+        </div>
+      </Suspense>
     </>
   );
 };
