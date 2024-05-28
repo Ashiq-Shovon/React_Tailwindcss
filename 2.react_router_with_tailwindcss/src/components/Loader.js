@@ -10,7 +10,7 @@ const override = {
   alignItems: "center",
   marginTop: "-120px",
   position: "fixed",
-  zIndex: "10",
+  // zIndex: "20",
   width: "100%",
   height: "100%",
   backgroundColor: "#FFF7ED",

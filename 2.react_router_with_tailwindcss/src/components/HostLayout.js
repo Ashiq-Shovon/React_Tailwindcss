@@ -23,7 +23,7 @@ const HostLayout = () => {
           <NavLink
             to="vans"
             className={({ isActive }) => (isActive ? "border px-3 py-2 border-orange-800" : "border px-3 py-2")}
-          >
+        >
             Vans
           </NavLink>
           <NavLink

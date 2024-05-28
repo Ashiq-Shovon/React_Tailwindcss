@@ -1,8 +1,19 @@
 import React from "react";
 import bgImg from "../assets/images/about-hero.png";
-import { Link } from "react-router-dom";
-
+import { Link, redirect } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGetVansQuery } from "../redux/services/vansApi";
 const About = () => {
+  let navigate = useNavigate();
+  const { data } = useGetVansQuery();
+  // alert(data);
+  console.log(data)
+  useEffect(() => {
+    setTimeout(() => {
+      redirect("/login");
+    }, 3000);
+  }, []);
   return (
     <div>
       <img src={bgImg} className="w-full h-96" />

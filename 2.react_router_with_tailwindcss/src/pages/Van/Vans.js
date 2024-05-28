@@ -1,25 +1,33 @@
-import React, { Suspense, CSSProperties } from "react";
+import React, { Suspense, CSSProperties, useContext } from "react";
 import { useEffect, useState } from "react";
-import { Await, Link, defer } from "react-router-dom";
+import { Await, Link, defer, json } from "react-router-dom";
 import { useSearchParams, useLoaderData } from "react-router-dom";
 import "../../server";
 import "../../dataLayerApi";
 import { getVans } from "../../dataLayerApi";
 import Loader from "../../components/Loader";
+import { useGetVansQuery, vanApi } from "../../redux/services/vansApi";
+import { configureStore } from "@reduxjs/toolkit";
+import { useFetching } from "../../utils";
 
-
-export function loader() {
-  return defer({ vans: getVans() });
+export const useLoader = () => {
+  const loader = useFetching(useGetVansQuery);
+  return loader;
 }
 
 const Vans = () => {
+  
   const [searchParams, setSearchParams] = useSearchParams();
+
   // const [vans, setVans] = useState([]);
   // const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const typeFilter = searchParams.get("type");
 
-  const vansPromise = useLoaderData();
+  const { vans, load } = useLoaderData();
+  // console.log(vans.data);
+  // alert(data);
+  // console.log(vansPromise);
   // useEffect(() => {
   //   async function loadVans() {
   //     setLoading(true);
@@ -59,12 +67,14 @@ const Vans = () => {
         <Link to="?type=rugged">rugged</Link>
         <Link to="?type=luxury">luxury</Link> */}
         <Suspense fallback={<Loader />}>
-          <Await resolve={vansPromise.vans}>
+          <Await resolve={vans}>
             {(vans) => {
               const displayVans = typeFilter
                 ? vans.filter((char) => char.type === typeFilter)
                 : vans;
-
+              {
+                console.log(vans, load);
+              }
               return (
                 <>
                   <div className="flex justify-center p-5 space-x-12">

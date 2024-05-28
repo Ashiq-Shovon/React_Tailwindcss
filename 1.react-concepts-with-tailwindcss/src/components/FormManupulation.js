@@ -5,6 +5,7 @@ const FormManupulation = () => {
   const ele = useRef(null);
 
   const ele1 = useRef(null);
+  const inputVal = useRef();
   const clear = (e) => {
     e.preventDefault();
     ele1.current.reset();
@@ -40,10 +41,10 @@ const FormManupulation = () => {
       };
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(text);
+    console.log(inputVal.current.className);
+    
   };
 
   return (
@@ -68,11 +69,18 @@ const FormManupulation = () => {
         className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
         placeholder="you@example.com"
       />
-
+      <div ref={inputVal}>
+        <p className="first"></p>
+        <p className="second"></p>
+      </div>
       <form onSubmit={handleSubmit} ref={ele1}>
         <h1 className="padding">hello world</h1>
-        <input type="text"></input>
-        <input type="text" name="firstName" onChange={handleText}></input>
+        <input
+          type="text"
+          name="firstName"
+          className="outline"
+          onChange={handleText}
+        ></input>
         <br />
         <input
           className="outline"
@@ -82,7 +90,7 @@ const FormManupulation = () => {
         />
         <button
           type="submit"
-          onClick={clear}
+          // onClick={clear}
           className="rounded-4 px-4 py-2 outline-offset-2 outline-blue-500 bg-orange-400"
         >
           submit

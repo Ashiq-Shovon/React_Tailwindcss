@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useLoaderData, useLocation, useParams } from "react-router";
+import React, { Suspense, useEffect, useState } from "react";
+import {
+  Await,
+  defer,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "react-router";
 import { Link } from "react-router-dom";
 import { getVan } from "../../dataLayerApi";
-export function loader({params}) {
-  return getVan(params);
+import Loader from "../../components/Loader";
+export function loader({ params }) {
+  // const location = useLocation();
+  return defer({ van: getVan(params) });
 }
 const VanDetail = () => {
   // const params = useParams();
@@ -22,29 +30,40 @@ const VanDetail = () => {
   // }, [params.id]);
   const back = location.state?.search || "";
   return (
-    <div>
-      <div className="p-8 text-2xl">
-        <div className="mb-8">
-          <Link to={`..${back}`} relative="path">
-          &larr; <span>Back to all vans</span>
-          </Link>
-        </div>
+    <Suspense fallback={<Loader />}>
+      <Await resolve={data.van}>
+        {(data) => {
+          return (
+            <>
+              <div>
+                <div className="p-8 text-2xl">
+                  <div className="mb-8">
+                    <Link to={`..${back}`} relative="path">
+                      &larr; <span>Back to all vans</span>
+                    </Link>
+                  </div>
 
-        <img
-          className="object-none object-center rounded mb-8"
-          src={data.imageUrl}
-        />
+                  <img
+                    className="object-none object-center rounded mb-8"
+                    src={data.imageUrl}
+                  />
 
-        <h1 className="inline-block p-2 rounded bg-slate-500 mb-8">
-          {data.type}
-        </h1>
-        <h1 className="font-bold mb-8">{data.name}</h1>
-        <h1 className="mb-4">
-          <span className="font-bold text-3xl">${data.price}</span>/day
-        </h1>
-        <h1>{data.description}</h1>
-      </div>
-    </div>
+                  <h1 className="inline-block p-2 rounded bg-slate-500 mb-8">
+                    {data.type}
+                  </h1>
+                  <h1 className="font-bold mb-8">{data.name}</h1>
+                  <h1 className="mb-4">
+                    <span className="font-bold text-3xl">${data.price}</span>
+                    /day
+                  </h1>
+                  <h1>{data.description}</h1>
+                </div>
+              </div>
+            </>
+          );
+        }}
+      </Await>
+    </Suspense>
   );
 };
 

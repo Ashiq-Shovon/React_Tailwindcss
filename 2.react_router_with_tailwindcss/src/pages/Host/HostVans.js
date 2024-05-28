@@ -1,9 +1,11 @@
 import React, { Suspense, useEffect, useState } from "react";
 import "../../server.js";
-import { Link, useLoaderData, defer, Await } from "react-router-dom";
+import { Link, useLoaderData, defer, Await, redirect } from "react-router-dom";
 import { getHostVans } from "../../dataLayerApi.js";
 import Loader from "../../components/Loader.js";
 import SyncLoader from "react-spinners/SyncLoader";
+import { authRequired, useFetching } from "../../utils.js";
+import { useGetHostVansQuery } from "../../redux/services/vansApi.js";
 const override = {
   display: "flex",
   justifyContent: "center",
@@ -15,8 +17,10 @@ const override = {
   height: "100%",
   backgroundColor: "#FFF7ED",
 };
-export function loader() {
-  return defer({ vans: getHostVans() });
+export function useLoader() {
+  authRequired();
+  const handleQuery = useFetching(useGetHostVansQuery);
+  return handleQuery;
 }
 const HostVans = () => {
   // const [vans, setVans] = useState();
@@ -36,8 +40,6 @@ const HostVans = () => {
     <>
       <Suspense fallback={<Loader />}>
         <div className="grid justify-center">
-          
-
           <Await resolve={hostVans.vans}>
             {(vans) => {
               return (
