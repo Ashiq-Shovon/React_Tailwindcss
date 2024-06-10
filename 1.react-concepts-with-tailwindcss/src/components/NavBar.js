@@ -1,16 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const NavBar = () => {
   return (
     <>
-      <nav className="text-center bg-red-200 py-4">
-        <Link to="/gallery" className="px-2">Gallery</Link>
-        <Link to="/mapMethod" className="px-2">Map Method</Link>
-        <Link to="/formManupulation" className="px-2">FormManupulation</Link>
-        <Link to="/useRef" className="px-2">UseRef</Link>
-        <Link to="/effect" className="px-2">Effect</Link>
-        <Link to="/chat" className="px-2">chat</Link>
-        <Link to="/map" className="px-2">Map</Link>
+      <nav className="h-screen grid justify-center items-center  bg-red-200 overflow-y-scroll">
+        <NavLink to="/gallery" end className={({isActive}) => isActive ?  "bg-slate-500 rounded-lg px-5 py-3" : "px-5 py-3  rounded-lg" }>Gallery</NavLink>
+        <NavLink to="/mapMethod" className={({isActive}) => isActive ?  "bg-slate-500 rounded-lg px-5 py-3 " : "px-5 py-3  rounded-lg" }>Map Method</NavLink>
+        <NavLink to="/formManupulation" className={({isActive}) => isActive ?  "bg-slate-500 rounded-lg px-5 py-3" : "px-5 py-3 rounded-lg" }>FormManupulation</NavLink>
+        <NavLink to="/useRef" className={({isActive}) => isActive ?  "bg-slate-500 rounded-lg px-5 py-3" : "px-5 py-3 rounded-lg" }>UseRef</NavLink>
+        <NavLink to="/effect" className={({isActive}) => isActive ?  "bg-slate-500 rounded-lg px-5 py-3" : "px-5 py-3 rounded-lg" }>Effect</NavLink>
+        <NavLink to="/chat" className={({isActive}) => isActive ?  "bg-slate-500 rounded-lg px-5 py-3" : "px-5 py-3 rounded-lg" }>chat</NavLink>
+        <NavLink to="/map" className={({isActive}) => isActive ?  "bg-slate-500 rounded-lg px-5 py-3" : "px-5 py-3 rounded-lg" }>Map</NavLink>
+        <NavLink to="/chaiAurJavascript" className={({isActive}) => isActive ?  "bg-slate-500 rounded-lg px-5 py-3" : "px-5 py-3 rounded-lg" }>Chair Aur Javascript</NavLink>
+     
       </nav>
     </>
   );
