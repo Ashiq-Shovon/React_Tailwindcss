@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-const SideBar = () => {
+const NavBar = () => {
   return (
     <>
       <div className="bg-slate-500 text-2xl p-10">
@@ -23,4 +23,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default NavBar;

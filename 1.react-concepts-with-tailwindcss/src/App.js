@@ -1,25 +1,26 @@
 import React from "react";
-import FormManupulation from "./components/FormManupulation";
-import Gallery from "./components/Gallery";
-import MapMethod from "./components/MapMethod";
-import NavBar from "./components/NavBar";
+import FormManupulation from "./components/mainContent/FormManupulation";
+import Gallery from "./components/mainContent/Gallery";
+import MapMethod from "./components/mainContent/MapMethod";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UseRef from "./components/UseRef";
-import Effect from "./components/Effect";
-import AppChat from "./components/chat/App";
-import Map from "./components/map/Map";
-import Layout from "./components/chai_aur_javascript/Layout";
-import String from "./components/chai_aur_javascript/String";
-import DashBoard from "./components/chai_aur_javascript/FormHandling/DashBoard";
-import Array from "./components/chai_aur_javascript/Array";
-import ObjectComp from "./components/chai_aur_javascript/ObjectComp";
-import MasterLayout from "./components/MasterLayout";
-import  FormLayout from  "./components/chai_aur_javascript/FormHandling/FormLayout"
-import WithState from "./components/chai_aur_javascript/FormHandling/WithState";
+import UseRef from "./components/mainContent/UseRef";
+import Effect from "./components/mainContent/Effect";
+import AppChat from "./components/mainContent/chat/App";
+import Map from "./components/mainContent/Map";
+import Layout from "./components/mainContent/chai_aur_javascript/layout/Layout";
+import String from "./components/mainContent/chai_aur_javascript/content/String";
+import DashBoard from "./components/mainContent/chai_aur_javascript/content/formHandling/content/DashBoard";
+import Array from "./components/mainContent/chai_aur_javascript/content/Array";
+import ObjectComp from "./components/mainContent/chai_aur_javascript/content/ObjectComp";
+import MasterLayout from "./components/master-layout/MasterLayout";
+import FormLayout from "./components/mainContent/chai_aur_javascript/content/formHandling/layout/FormLayout";
+import WithState from "./components/mainContent/chai_aur_javascript/content/formHandling/content/WithState";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./utilities/router";
 function App() {
   return (
     <>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
           <Route path="/" element={<MasterLayout />}>
             <Route path="gallery" element={<Gallery />}></Route>
@@ -33,9 +34,12 @@ function App() {
             <Route path="chat" element={<AppChat />} />
             <Route path="map" element={<Map />} />
             <Route path="chaiAurJavascript" element={<Layout />}>
-              <Route path="" element={<FormLayout />} >
+              <Route path="" element={<FormLayout />}>
                 <Route index element={<DashBoard />} />
-                <Route path="form_manupulation_with_formData" element={<WithState />} />
+                <Route
+                  path="form_manupulation_with_formData"
+                  element={<WithState />}
+                />
               </Route>
               <Route path="string" element={<String />} />
               <Route path="array" element={<Array />} />
@@ -43,7 +47,8 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <RouterProvider router={router} />
     </>
   );
 }
