@@ -4,7 +4,7 @@ const ArtistCard = () => {
   return (
     <div>
       <h3>ArtistCard</h3>
-    </div>
+    </d   iv>
   )
 }
 
