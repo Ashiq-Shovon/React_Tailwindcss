@@ -58,3 +58,22 @@ export const coditionalValueAddedInArray = () => {
   const fruits = ["banana", "mango", ...(isSummer ? ["waterMelon"] : [])];
   return fruits;
 };
+
+export function deriveProto () {
+  const personPrototype = {
+    greet() {
+      return `hello, my name is ${this.name}!`;
+    },
+  };
+  
+  function Person (name) {
+    this.name = name;
+  }
+  
+  Object.assign(Person.prototype, personPrototype);
+  
+  return Person;
+}
+
+
+
