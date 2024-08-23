@@ -6,7 +6,7 @@ const SideBar = () => {
       <div className="grid">
         <NavLink
           to="/gallery"
-          end
+        
           className={({ isActive }) =>
             isActive
               ? "bg-slate-500 rounded-lg px-8 py-3"
@@ -86,7 +86,7 @@ const SideBar = () => {
           Map
         </NavLink>
         <NavLink
-          to="/chaiAurJavascript"
+          to="chaiAurJavascript"
           className={({ isActive }) =>
             isActive
               ? "bg-slate-500 rounded-lg px-8 py-3"

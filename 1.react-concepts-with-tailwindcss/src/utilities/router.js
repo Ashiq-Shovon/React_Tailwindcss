@@ -1,112 +1,93 @@
 import { createBrowserRouter } from "react-router-dom";
-import FormManupulation from "../components/mainContent/FormManupulation";
-import Gallery from "../components/mainContent/Gallery";
-import MapMethod from "../components/mainContent/MapMethod";
-import UseRef from "../components/mainContent/UseRef";
-import Effect from "../components/mainContent/Effect";
-import AppChat from "../components/mainContent/chat/App";
-import Map from "../components/mainContent/Map";
-import Layout from "../components/mainContent/chai_aur_javascript/layout/Layout";
-// import String from "../components/mainContent/chai_aur_javascript/content/String";
-import DashBoard from "../components/mainContent/chai_aur_javascript/content/formHandling/content/DashBoard";
-// import Array from "../components/mainContent/chai_aur_javascript/content/Array";
-import ObjectComp from "../components/mainContent/chai_aur_javascript/content/ObjectComp";
-import MasterLayout from "../components/master-layout/MasterLayout";
-import FormLayout from "../components/mainContent/chai_aur_javascript/content/formHandling/layout/FormLayout";
-import WithState from "../components/mainContent/chai_aur_javascript/content/formHandling/content/WithState";
-import JavascriptLayout from "../components/mainContent/javascript-concept/javascript-layout/JavascriptLayout";
-import Function from "../components/mainContent/javascript-concept/javascript-content/Function";
-import Object from "../components/mainContent/javascript-concept/javascript-content/Object";
-import Array from "../components/mainContent/javascript-concept/javascript-content/Array";
-import String from "../components/mainContent/javascript-concept/javascript-content/String";
-import JavascriptNavBar from "../components/mainContent/javascript-concept/javascript-layout/JavascriptNavBar";
+import * as All from "./imp";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <MasterLayout />,
+    element: <All.MasterLayout />,
     children: [
       {
         path: "gallery",
-        element: <Gallery />,
+        element: <All.Gallery />,
       },
       {
         path: "mapMethod",
-        element: <MapMethod />,
+        element: <All.MapMethod />,
       },
       {
         path: "javascript-concept",
-        element: <JavascriptLayout />,
+        element: <All.JavascriptLayout />,
         children: [
           {
             path: "function",
-            element: <Function />,
+            element: <All.Function />,
           },
           {
             path: "object",
-            element: <Object />,
+            element: <All.ObjectCon />,
           },
 
           {
             path: "array",
-            element: <Array />,
+            element: <All.Array />,
           },
           {
             path: "string",
-            element: <String />,
+            element: <All.String />,
           },
         ],
       },
 
       {
         path: "useRef",
-        element: <UseRef />,
+        element: <All.UseRef />,
       },
       {
         path: "formManupulation",
-        element: <FormManupulation />,
+        element: <All.FormManupulation />,
       },
       {
         path: "effect",
-        element: <Effect />,
+        element: <All.Effect />,
       },
       {
         path: "chat",
-        element: <AppChat />,
+        element: <All.AppChat />,
       },
       {
         path: "map",
-        element: <Map />,
+        element: <All.Map />,
       },
       {
         path: "chaiAurJavascript",
-        element: <Layout />,
+        element: <All.Layout />,
         children: [
           {
-            path: "",
-            element: <FormLayout />,
+            index: true,
+            element: <All.ArrayMain />,
+          },
+          {
+            path: "dashboard",
+            element: <All.FormLayout />,
             children: [
               {
                 index: true,
-                element: <DashBoard />,
+                element: <All.DashBoard />,
               },
               {
                 path: "form_manupulation_with_formData",
-                element: <WithState />,
+                element: <All.WithState />,
               },
             ],
           },
           {
-            path: "string",
-            element: <String />,
+            path: "object",
+            element: <All.ObjectComp />,
           },
-          // {
-          //   path: "array",
-          //   element: <Array />,
-          // },
-          // {
-          //   path: "object",
-          //   element: <ObjectComp />,
-          // },
+
+          {
+            path: "string",
+            element: <All.String />,
+          },
         ],
       },
     ],
