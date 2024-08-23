@@ -1,5 +1,4 @@
 import React from "react";
-import Object from "../javascript-content/Object";
 import Function from "../javascript-content/Function";
 import { Outlet } from "react-router";
 import JavascriptNavBar from "./JavascriptNavBar";
